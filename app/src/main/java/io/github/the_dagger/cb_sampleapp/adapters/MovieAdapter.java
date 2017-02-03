@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import io.github.the_dagger.cb_sampleapp.R;
 import io.github.the_dagger.cb_sampleapp.model.SingleMovie;
+import io.github.the_dagger.cb_sampleapp.model.SingleUser;
 
 /**
  * Created by Harshit on 2/3/2017
@@ -21,12 +22,14 @@ import io.github.the_dagger.cb_sampleapp.model.SingleMovie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
-    private ArrayList<SingleMovie> movies;
     private Context context;
+    private ArrayList<SingleUser> users;
 
-    public MovieAdapter(ArrayList<SingleMovie> movieArrayList){
-        movies = movieArrayList;
+    public MovieAdapter(ArrayList<SingleUser> singleUserArrayList) {
+        users = singleUserArrayList;
     }
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -35,8 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(movies.get(position).getOriginalTitle());
-        String poster = "http://image.tmdb.org/t/p/w500" + movies.get(position).getPosterPath();
+        holder.textView.setText(users.get(position).getLogin());
+        String poster = users.get(position).getAvatarUrl();
         //TODO : remove fit and check what happens
         Picasso.with(context)
                 .load(poster)
@@ -48,7 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return users.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

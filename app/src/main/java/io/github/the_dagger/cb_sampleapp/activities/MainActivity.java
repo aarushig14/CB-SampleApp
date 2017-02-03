@@ -7,17 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
 
-import io.github.the_dagger.cb_sampleapp.adapters.MovieAdapter;
-import io.github.the_dagger.cb_sampleapp.model.MovieList;
 import io.github.the_dagger.cb_sampleapp.R;
-import io.github.the_dagger.cb_sampleapp.model.SingleMovie;
+import io.github.the_dagger.cb_sampleapp.adapters.MovieAdapter;
 import io.github.the_dagger.cb_sampleapp.model.SingleUser;
 import io.github.the_dagger.cb_sampleapp.model.UserList;
 import io.github.the_dagger.cb_sampleapp.rest.TheMovieDbApi;
@@ -27,8 +24,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<SingleMovie> singleMovieArrayList;
     MovieAdapter movieAdapter;
+    ArrayList<SingleUser> singleUserArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        singleMovieArrayList = new ArrayList<>();
-        movieAdapter = new MovieAdapter(singleMovieArrayList);
+        singleUserArrayList = new ArrayList<>();
+        movieAdapter = new MovieAdapter(singleUserArrayList);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,23 +46,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TheMovieDbApi theMovieDbApi = new TheMovieDbApi();
-        theMovieDbApi.getMovieClient().getMovieList().enqueue(new Callback<MovieList>() {
-            @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                for (SingleMovie singleMovie : response.body().getResults()){
-                    Log.e("Movie",singleMovie.getOriginalTitle());
-                    singleMovieArrayList.add(singleMovie);
-                }
-                movieAdapter.notifyDataSetChanged();
 
+        theMovieDbApi.getGithubClient().getUsers().enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+                singleUserArrayList.addAll(response.body().getSingleUserArrayList());
+                movieAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
+            public void onFailure(Call<UserList> call, Throwable t) {
 
             }
         });
-
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movieRecyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
