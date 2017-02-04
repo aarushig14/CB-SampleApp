@@ -18,14 +18,4 @@ public class TheMovieDbApi {
                 .build();
         return retrofit.create(MovieClient.class);
     }
-
-//    public MovieClient getGithubClient() {
-//        String BASE_URL = "https://api.github.com/";
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        return retrofit.create(MovieClient.class);
-//    }
 }
