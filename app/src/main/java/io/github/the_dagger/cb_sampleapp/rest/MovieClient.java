@@ -19,4 +19,8 @@ public interface MovieClient {
 
     @POST("/post.php")
     Call<ResponseBody> sendPost(@Body SingleMovie singleMovie);
+
+    //TODO 1 : Consume Github API for user names (https://api.github.com/search/users?q=harshit)
+
+    //TODO 2 : Send a POST request of github user name
 }

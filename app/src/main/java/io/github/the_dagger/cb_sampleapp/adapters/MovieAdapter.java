@@ -35,8 +35,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(movies.get(position).getOriginalTitle());
         String poster = "http://image.tmdb.org/t/p/w500" + movies.get(position).getPosterPath();
-        //TODO : Add Picasso
-        //TODO : remove fit and check what happens
+        //TODO 3: Add Picasso
+        //TODO 4: add fit and check what happens
     }
 
     @Override
