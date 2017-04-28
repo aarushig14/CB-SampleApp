@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import io.github.the_dagger.cb_sampleapp.R;
@@ -30,20 +28,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.single_movie,null));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.single_movie,parent,false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(movies.get(position).getOriginalTitle());
         String poster = "http://image.tmdb.org/t/p/w500" + movies.get(position).getPosterPath();
+        //TODO : Add Picasso
         //TODO : remove fit and check what happens
-        Picasso.with(context)
-                .load(poster)
-                .fit()
-                .placeholder(R.drawable.ic_placeholder)
-                .error(R.drawable.ic_error)
-                .into(holder.imageView);
     }
 
     @Override
