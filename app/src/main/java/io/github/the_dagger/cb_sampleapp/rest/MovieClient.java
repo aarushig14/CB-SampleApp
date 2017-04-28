@@ -21,6 +21,9 @@ public interface MovieClient {
     Call<ResponseBody> sendPost(@Body SingleMovie singleMovie);
 
     //TODO 1 : Consume Github API for user names (https://api.github.com/search/users?q=harshit)
+    // and (https://api.github.com/users/{the-dagger}/repos) (Path) and (Query)
 
     //TODO 2 : Send a POST request of github user name
+
+    //TODO 3 : Dynamic path in URL
 }
